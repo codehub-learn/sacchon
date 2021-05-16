@@ -1,6 +1,7 @@
 package gr.codehub.sacchon.service.impl;
 
 import gr.codehub.sacchon.model.Patient;
+import gr.codehub.sacchon.representation.ResultData;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockitoAnnotations;
 import gr.codehub.sacchon.repository.PatientRepository;
@@ -45,7 +46,7 @@ class PatientServiceImplTest   {
         patientRepresentation.setUsername("s0kis");
         patientRepresentation.setPassword("1011");
 
-        PatientRepresentation patientRepresentationPersisted = patientService.createPatient(patientRepresentation);
-        assertEquals(patientRepresentation.getName(), patientRepresentationPersisted.getName());
+        ResultData<PatientRepresentation> patientRepresentationPersisted = patientService.createPatient(patientRepresentation);
+        assertEquals(patientRepresentation.getName(), patientRepresentationPersisted.getData().getName());
     }
 }

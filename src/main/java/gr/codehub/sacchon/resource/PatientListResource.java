@@ -4,6 +4,7 @@ import gr.codehub.sacchon.exception.AuthorizationException;
 import gr.codehub.sacchon.exception.EntityException;
 import gr.codehub.sacchon.jpaUtil.JpaUtil;
 import gr.codehub.sacchon.model.Patient;
+import gr.codehub.sacchon.representation.ResultData;
 import gr.codehub.sacchon.service.PatientService;
 import gr.codehub.sacchon.service.impl.PatientServiceImpl;
 import org.restlet.resource.Get;
@@ -42,7 +43,7 @@ public class PatientListResource extends ServerResource {
     }
 
     @Post("json")
-    public PatientRepresentation add(PatientRepresentation patientRepresentationIn) throws AuthorizationException, EntityException {
+    public ResultData<PatientRepresentation> add(PatientRepresentation patientRepresentationIn) throws AuthorizationException, EntityException {
         ResourceUtils.checkRole(this, Shield.ROLE_CHIEF_DOCTOR);
         return patientService.createPatient(patientRepresentationIn);
     }

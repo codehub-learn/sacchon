@@ -4,6 +4,7 @@ import gr.codehub.sacchon.exception.AuthorizationException;
 import gr.codehub.sacchon.exception.EntityException;
 import gr.codehub.sacchon.jpaUtil.JpaUtil;
 import gr.codehub.sacchon.model.Patient;
+import gr.codehub.sacchon.representation.ResultData;
 import gr.codehub.sacchon.service.PatientService;
 import gr.codehub.sacchon.service.impl.PatientServiceImpl;
 import org.restlet.resource.Delete;
@@ -34,8 +35,10 @@ public class PatientResource extends ServerResource {
     protected void doRelease(){
         entityManager.close();
     }
+
+
     @Get("json")
-    public PatientRepresentation getPatient() throws AuthorizationException {
+    public ResultData<PatientRepresentation> getPatient() throws AuthorizationException {
         ResourceUtils.checkRole(this, Shield.ROLE_CHIEF_DOCTOR);
         return patientService.readPatient(id);
     }
