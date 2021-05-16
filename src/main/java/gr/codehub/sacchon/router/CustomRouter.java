@@ -87,6 +87,7 @@ public class CustomRouter {
         router.attach("/reportPatientGlucose/{patientId}", ReportPatientGlucoseListResource.class); //get
         router.attach("/reportDoctorConsultation/{doctorId}", ReportDoctorConsultationListResource.class);
         router.attach("/reportUnconsultedPatient/", ReportUnconsultedPatientListResource.class);//get more than a month
+        router.attach("/reportUnconsultedPatient", ReportUnconsultedPatientListResource.class);//get more than a month
         router.attach("/reportUnconsultedPatientDiff/", ReportUnconsultedPatientDiffListResource.class);
         router.attach("/patientInactive", PatientInactiveListResource.class);
         router.attach("/doctorInactive", DoctorInactiveListResource.class);

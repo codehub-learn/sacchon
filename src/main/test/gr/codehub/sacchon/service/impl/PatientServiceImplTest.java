@@ -11,7 +11,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
-
 import javax.persistence.EntityManager;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -19,20 +18,16 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 
-
-//mocking the repository
-
 class PatientServiceImplTest   {
 
-
+//mocking the repository and the EntityManager
     @Mock
     private PatientRepository patientRepositoryMock  ;
     @Mock
     private EntityManager emMock  ;
 
     @InjectMocks
-    PatientService patientService = new PatientServiceImpl();
-
+    PatientService patientService = new PatientServiceImpl(emMock);
 
     @BeforeEach
     void init_mocks() {
@@ -40,30 +35,17 @@ class PatientServiceImplTest   {
     }
 
     @Test
-    void save() {
-        assertNotNull(patientRepositoryMock);
-        Patient patientExp = new Patient();
+    void save() throws Exception{
 
+        Patient patientExp = new Patient();
         when(patientRepositoryMock.save(any(Patient.class)) ).thenReturn(patientExp);
 
-
-
         PatientRepresentation patientRepresentation = new PatientRepresentation();
-
         patientRepresentation.setName("S0kis");
         patientRepresentation.setUsername("s0kis");
         patientRepresentation.setPassword("1011");
 
-        Patient patientFront = patientRepresentation.createPatient();
-
-        try {
-            PatientRepresentation patientReprReturned = patientService.save(patientRepresentation);
-            assertEquals(patientRepresentation.getName(), patientReprReturned.getName());
-        }
-        catch(Exception e){
-            assertEquals(1,2);
-        }
-
-
+        PatientRepresentation patientRepresentationPersisted = patientService.createPatient(patientRepresentation);
+        assertEquals(patientRepresentation.getName(), patientRepresentationPersisted.getName());
     }
 }
